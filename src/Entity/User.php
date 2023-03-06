@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\UserRepository;
+use Symfony\Component\Uid\Ulid;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource]
@@ -21,6 +22,11 @@ class User
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Avatar $avatar = null;
+
+    public function __construct(string $ulid = null)
+    {
+        $this->ulid = $ulid ?? new Ulid();
+    }
 
     public function getId(): ?int
     {

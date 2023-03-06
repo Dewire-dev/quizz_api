@@ -16,22 +16,22 @@ class Avatar
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::BINARY)]
-    private $picture = null;
+    #[ORM\Column(type: Types::STRING)]
+    private ?string $code = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPicture()
+    public function getCode(): ?string
     {
-        return $this->picture;
+        return $this->code;
     }
 
-    public function setPicture($picture): self
+    public function setCode(string $code): self
     {
-        $this->picture = $picture;
+        $this->code = $code;
 
         return $this;
     }
