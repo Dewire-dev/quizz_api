@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\AvatarRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: AvatarRepository::class)]
 #[ApiResource]
@@ -17,6 +18,7 @@ class Avatar
     private ?int $id = null;
 
     #[ORM\Column(type: Types::STRING)]
+    #[Groups('user:item:get')]
     private ?string $code = null;
 
     public function getId(): ?int
