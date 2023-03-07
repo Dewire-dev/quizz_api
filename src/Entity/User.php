@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\Post;
+use App\State\Processor\PostUserStateProcessor;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Uid\Ulid;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +12,14 @@ use App\Repository\UserRepository;
 use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new Post(
+            processor: PostUserStateProcessor::class,
+        ),
+    ]
+)]
+#[UniqueEntity('ulid')]
 class User implements UserInterface
 {
     #[ORM\Id]
@@ -18,7 +27,7 @@ class User implements UserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 26)]
+    #[ORM\Column(length: 26, unique: true)]
     private ?string $ulid = null;
 
     #[ORM\ManyToOne]
