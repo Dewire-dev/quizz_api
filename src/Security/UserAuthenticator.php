@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use ApiPlatform\Api\IriConverterInterface;
 use App\Repository\UserRepository;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,6 +22,7 @@ class UserAuthenticator extends AbstractAuthenticator
     public function __construct(
         private readonly UserRepository $userRepository,
         private readonly JWTTokenManagerInterface $JWTTokenManager,
+        private readonly IriConverterInterface $iriConverter,
         private readonly string $quizSecretKey,
     ) {
     }
@@ -59,6 +61,7 @@ class UserAuthenticator extends AbstractAuthenticator
     {
         return new Response('', Response::HTTP_OK, [
             'token' => $this->JWTTokenManager->create($token->getUser()),
+            'iri' => $this->iriConverter->getIriFromResource($token->getUser()),
         ]);
     }
 
