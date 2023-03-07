@@ -7,6 +7,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
@@ -20,6 +21,7 @@ class UserAuthenticator extends AbstractAuthenticator
     public function __construct(
         private readonly UserRepository $userRepository,
         private readonly JWTTokenManagerInterface $JWTTokenManager,
+        private readonly string $quizSecretKey,
     ) {
     }
 
@@ -35,6 +37,12 @@ class UserAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): Passport
     {
+        $quizSecretKey = $request->headers->get('X-AUTH-SECRET-KEY');
+
+        if ($this->quizSecretKey !== $quizSecretKey) {
+            throw new UnauthorizedHttpException('Vous n\'êtes pas autorisé à accéder à l\'API.');
+        }
+
         $ulid = $request->headers->get('X-AUTH-ULID');
         $user = $this->userRepository->findOneBy([
             'ulid' => $ulid,
