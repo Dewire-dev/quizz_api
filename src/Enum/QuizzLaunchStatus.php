@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum QuizzLaunchStatus: string
+enum QuizLaunchStatus: string
 {
     case LAUNCHING = 'En lancement';
     case PENDING = 'En attente';

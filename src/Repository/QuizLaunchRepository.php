@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\QuizzLaunchParticipant;
+use App\Entity\QuizLaunch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<QuizzLaunchParticipant>
+ * @extends ServiceEntityRepository<QuizLaunch>
  *
- * @method QuizzLaunchParticipant|null find($id, $lockMode = null, $lockVersion = null)
- * @method QuizzLaunchParticipant|null findOneBy(array $criteria, array $orderBy = null)
- * @method QuizzLaunchParticipant[]    findAll()
- * @method QuizzLaunchParticipant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method QuizLaunch|null find($id, $lockMode = null, $lockVersion = null)
+ * @method QuizLaunch|null findOneBy(array $criteria, array $orderBy = null)
+ * @method QuizLaunch[]    findAll()
+ * @method QuizLaunch[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class QuizzLaunchParticipantRepository extends ServiceEntityRepository
+class QuizLaunchRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, QuizzLaunchParticipant::class);
+        parent::__construct($registry, QuizLaunch::class);
     }
 
-    public function save(QuizzLaunchParticipant $entity, bool $flush = false): void
+    public function save(QuizLaunch $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class QuizzLaunchParticipantRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(QuizzLaunchParticipant $entity, bool $flush = false): void
+    public function remove(QuizLaunch $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class QuizzLaunchParticipantRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return QuizzLaunchParticipant[] Returns an array of QuizzLaunchParticipant objects
+//     * @return QuizLaunch[] Returns an array of QuizLaunch objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class QuizzLaunchParticipantRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?QuizzLaunchParticipant
+//    public function findOneBySomeField($value): ?QuizLaunch
 //    {
 //        return $this->createQueryBuilder('q')
 //            ->andWhere('q.exampleField = :val')

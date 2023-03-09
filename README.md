@@ -1,4 +1,4 @@
-"# quizz_api"
+"# quiz_api"
 
 > composer install
 

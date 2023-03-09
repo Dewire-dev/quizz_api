@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum QuizzParticipantStatus: string
+enum QuizParticipantStatus: string
 {
     case READY = 'Prêt';
     case PENDING = 'En attente de réponse';

@@ -3,14 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\QuizzLaunchRepository;
+use App\Repository\QuizLaunchRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: QuizzLaunchRepository::class)]
+#[ORM\Entity(repositoryClass: QuizLaunchRepository::class)]
 #[ApiResource]
-class QuizzLaunch
+class QuizLaunch
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,10 +26,10 @@ class QuizzLaunch
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Quizz $quizz = null;
+    private ?Quiz $quiz = null;
 
-    #[ORM\OneToMany(mappedBy: 'quizzLaunch', targetEntity: QuizzLaunchParticipant::class)]
-    private Collection $quizzLaunchParticipants;
+    #[ORM\OneToMany(mappedBy: 'quizLaunch', targetEntity: QuizLaunchParticipant::class)]
+    private Collection $quizLaunchParticipants;
 
     #[ORM\ManyToOne]
     private ?Question $currentQuestion = null;
@@ -45,7 +45,7 @@ class QuizzLaunch
 
     public function __construct()
     {
-        $this->quizzLaunchParticipants = new ArrayCollection();
+        $this->quizLaunchParticipants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,42 +77,42 @@ class QuizzLaunch
         return $this;
     }
 
-    public function getQuizz(): ?Quizz
+    public function getQuiz(): ?Quiz
     {
-        return $this->quizz;
+        return $this->quiz;
     }
 
-    public function setQuizz(?Quizz $quizz): self
+    public function setQuiz(?Quiz $quiz): self
     {
-        $this->quizz = $quizz;
+        $this->quiz = $quiz;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, QuizzLaunchParticipant>
+     * @return Collection<int, QuizLaunchParticipant>
      */
-    public function getQuizzLaunchParticipants(): Collection
+    public function getQuizLaunchParticipants(): Collection
     {
-        return $this->quizzLaunchParticipants;
+        return $this->quizLaunchParticipants;
     }
 
-    public function addQuizzLaunchParticipant(QuizzLaunchParticipant $quizzLaunchParticipant): self
+    public function addQuizLaunchParticipant(QuizLaunchParticipant $quizLaunchParticipant): self
     {
-        if (!$this->quizzLaunchParticipants->contains($quizzLaunchParticipant)) {
-            $this->quizzLaunchParticipants->add($quizzLaunchParticipant);
-            $quizzLaunchParticipant->setQuizzLaunch($this);
+        if (!$this->quizLaunchParticipants->contains($quizLaunchParticipant)) {
+            $this->quizLaunchParticipants->add($quizLaunchParticipant);
+            $quizLaunchParticipant->setQuizLaunch($this);
         }
 
         return $this;
     }
 
-    public function removeQuizzLaunchParticipant(QuizzLaunchParticipant $quizzLaunchParticipant): self
+    public function removeQuizLaunchParticipant(QuizLaunchParticipant $quizLaunchParticipant): self
     {
-        if ($this->quizzLaunchParticipants->removeElement($quizzLaunchParticipant)) {
+        if ($this->quizLaunchParticipants->removeElement($quizLaunchParticipant)) {
             // set the owning side to null (unless already changed)
-            if ($quizzLaunchParticipant->getQuizzLaunch() === $this) {
-                $quizzLaunchParticipant->setQuizzLaunch(null);
+            if ($quizLaunchParticipant->getQuizLaunch() === $this) {
+                $quizLaunchParticipant->setQuizLaunch(null);
             }
         }
 

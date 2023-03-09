@@ -24,10 +24,13 @@ class Question
 
     #[ORM\ManyToOne(inversedBy: 'questions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Quizz $quizz = null;
+    private ?Quiz $quiz = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $position = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $explanationAnswer = null;
 
     public function __construct()
     {
@@ -81,14 +84,14 @@ class Question
         return $this;
     }
 
-    public function getQuizz(): ?Quizz
+    public function getQuiz(): ?Quiz
     {
-        return $this->quizz;
+        return $this->quiz;
     }
 
-    public function setQuizz(?Quizz $quizz): self
+    public function setQuiz(?Quiz $quiz): self
     {
-        $this->quizz = $quizz;
+        $this->quiz = $quiz;
 
         return $this;
     }
@@ -101,6 +104,18 @@ class Question
     public function setPosition(int $position): self
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getExplanationAnswer(): ?string
+    {
+        return $this->explanationAnswer;
+    }
+
+    public function setExplanationAnswer(string $explanationAnswer): self
+    {
+        $this->explanationAnswer = $explanationAnswer;
 
         return $this;
     }

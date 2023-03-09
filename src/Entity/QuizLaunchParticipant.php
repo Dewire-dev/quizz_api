@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\QuizzLaunchParticipantRepository;
+use App\Repository\QuizLaunchParticipantRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: QuizzLaunchParticipantRepository::class)]
-class QuizzLaunchParticipant
+#[ORM\Entity(repositoryClass: QuizLaunchParticipantRepository::class)]
+class QuizLaunchParticipant
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,9 +17,9 @@ class QuizzLaunchParticipant
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'quizzLaunchParticipants')]
+    #[ORM\ManyToOne(inversedBy: 'quizLaunchParticipants')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?QuizzLaunch $quizzLaunch = null;
+    private ?QuizLaunch $quizLaunch = null;
 
     #[ORM\Column(length: 255)]
     private ?string $participantStatus = null;
@@ -44,14 +44,14 @@ class QuizzLaunchParticipant
         return $this;
     }
 
-    public function getQuizzLaunch(): ?QuizzLaunch
+    public function getQuizLaunch(): ?QuizLaunch
     {
-        return $this->quizzLaunch;
+        return $this->quizLaunch;
     }
 
-    public function setQuizzLaunch(?QuizzLaunch $quizzLaunch): self
+    public function setQuizLaunch(?QuizLaunch $quizLaunch): self
     {
-        $this->quizzLaunch = $quizzLaunch;
+        $this->quizLaunch = $quizLaunch;
 
         return $this;
     }
