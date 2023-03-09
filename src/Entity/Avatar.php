@@ -17,7 +17,7 @@ class Avatar
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, length: 20)]
     #[Groups('user:item:get')]
     private ?string $code = null;
 

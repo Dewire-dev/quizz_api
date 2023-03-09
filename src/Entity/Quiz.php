@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use App\Enum\Category;
 use App\Repository\QuizRepository;
@@ -9,7 +10,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: QuizRepository::class)]
 #[ApiResource]
 class Quiz
@@ -34,6 +40,13 @@ class Quiz
     #[ORM\OneToMany(mappedBy: 'quiz', targetEntity: Question::class, orphanRemoval: true)]
     private Collection $questions;
 
+    #[Vich\UploadableField(mapping: 'media_object', fileNameProperty: 'fileName')]
+    #[Assert\NotNull]
+    private ?File $picture = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $fileName = null;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
@@ -56,12 +69,12 @@ class Quiz
         return $this;
     }
 
-    public function getCategory(): ?string
+    public function getCategory(): Category
     {
         return $this->category;
     }
 
-    public function setCategory(string $category): self
+    public function setCategory(Category $category): self
     {
         $this->category = $category;
 
@@ -118,6 +131,18 @@ class Quiz
                 $question->setQuiz(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPicture(): File
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(File $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

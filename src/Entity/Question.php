@@ -29,6 +29,9 @@ class Question
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $position = null;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $explanationAnswer = null;
+
     public function __construct()
     {
         $this->answers = new ArrayCollection();
@@ -101,6 +104,18 @@ class Question
     public function setPosition(int $position): self
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getExplanationAnswer(): ?string
+    {
+        return $this->explanationAnswer;
+    }
+
+    public function setExplanationAnswer(string $explanationAnswer): self
+    {
+        $this->explanationAnswer = $explanationAnswer;
 
         return $this;
     }
