@@ -24,7 +24,7 @@ class Question
 
     #[ORM\ManyToOne(inversedBy: 'questions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Quizz $quizz = null;
+    private ?Quiz $quiz = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $position = null;
@@ -81,14 +81,14 @@ class Question
         return $this;
     }
 
-    public function getQuizz(): ?Quizz
+    public function getQuiz(): ?Quiz
     {
-        return $this->quizz;
+        return $this->quiz;
     }
 
-    public function setQuizz(?Quizz $quizz): self
+    public function setQuiz(?Quiz $quiz): self
     {
-        $this->quizz = $quizz;
+        $this->quiz = $quiz;
 
         return $this;
     }

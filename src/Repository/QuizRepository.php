@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\QuizzLaunch;
+use App\Entity\Quiz;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<QuizzLaunch>
+ * @extends ServiceEntityRepository<Quiz>
  *
- * @method QuizzLaunch|null find($id, $lockMode = null, $lockVersion = null)
- * @method QuizzLaunch|null findOneBy(array $criteria, array $orderBy = null)
- * @method QuizzLaunch[]    findAll()
- * @method QuizzLaunch[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Quiz|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Quiz|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Quiz[]    findAll()
+ * @method Quiz[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class QuizzLaunchRepository extends ServiceEntityRepository
+class QuizRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, QuizzLaunch::class);
+        parent::__construct($registry, Quiz::class);
     }
 
-    public function save(QuizzLaunch $entity, bool $flush = false): void
+    public function save(Quiz $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class QuizzLaunchRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(QuizzLaunch $entity, bool $flush = false): void
+    public function remove(Quiz $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class QuizzLaunchRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return QuizzLaunch[] Returns an array of QuizzLaunch objects
+//     * @return Quiz[] Returns an array of Quiz objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class QuizzLaunchRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?QuizzLaunch
+//    public function findOneBySomeField($value): ?Quiz
 //    {
 //        return $this->createQueryBuilder('q')
 //            ->andWhere('q.exampleField = :val')

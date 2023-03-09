@@ -4,15 +4,15 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Enum\Category;
-use App\Repository\QuizzRepository;
+use App\Repository\QuizRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: QuizzRepository::class)]
+#[ORM\Entity(repositoryClass: QuizRepository::class)]
 #[ApiResource]
-class Quizz
+class Quiz
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -31,7 +31,7 @@ class Quizz
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'quizz', targetEntity: Question::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'quiz', targetEntity: Question::class, orphanRemoval: true)]
     private Collection $questions;
 
     public function __construct()
@@ -104,7 +104,7 @@ class Quizz
     {
         if (!$this->questions->contains($question)) {
             $this->questions->add($question);
-            $question->setQuizz($this);
+            $question->setQuiz($this);
         }
 
         return $this;
@@ -114,8 +114,8 @@ class Quizz
     {
         if ($this->questions->removeElement($question)) {
             // set the owning side to null (unless already changed)
-            if ($question->getQuizz() === $this) {
-                $question->setQuizz(null);
+            if ($question->getQuiz() === $this) {
+                $question->setQuiz(null);
             }
         }
 
